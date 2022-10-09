@@ -11,7 +11,8 @@ double windowHeight=1200, windowWidth=800;
 GLfloat alpha = 0.0, theta = 0.0, axis_x=0.0, axis_y=0.0;
 GLboolean bRotate = false, uRotate = false;
 GLdouble eX = 5,eY = 3, eZ = 10, cX = 2, cY = 0, cZ = 0, uX = 0, uY = 0, uZ = 0;
-
+double dx = 0, dy = 0, dz = 0;
+double yaw =0, pitch= 0, roll = 0;
 
  GLfloat mat_diffuse[][4] = {
         { 0.4, 0.4, 0.4, 1.0 },
@@ -626,7 +627,7 @@ void display(void)
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
     // gluLookAt(5,3, Tzval, 2,0,0, 0,1,uZ); // camera , ,
-    gluLookAt(2,3,Tzval, 1.5,0,0, 0,1,uZ); // camera , ,
+    gluLookAt(2,3,Tzval, 1.5+dx,0+dy,0+dz, 0,1,uZ); // camera , ,
 
    
 
@@ -711,16 +712,16 @@ void myKeyboardFunc( unsigned char key, int x, int y )
 {
     switch ( key )
     {
-    case 's':
-    case 'S':
+    case '8':
+    // case 'S':
         bRotate = !bRotate;
         uRotate = false;
         axis_x=0.0;
         axis_y=1.0;
         break;
 
-    case 'r':
-    case 'R':
+    case '7':
+    // case 'R':
         uRotate = !uRotate;
         bRotate = false;
         axis_x=1.0;
@@ -739,6 +740,39 @@ void myKeyboardFunc( unsigned char key, int x, int y )
     case '3':
         uZ -= 0.2;
         break;
+//yaw
+    case 'd':
+        y=y;
+        dx += 0.1;
+        break;
+
+    case 'a':
+
+        y=y;
+        dx -= 0.1;
+        break;
+//pitch
+
+    case 'w':
+        x=x;
+        dy += 0.2;
+        break;
+
+    case 's':
+        x=x;
+        dy -= 0.2;
+
+        break;
+
+//roll
+    case 'r':
+        uZ+=0.2;
+        break;
+
+    case 'R':
+        uZ-=0.2; 
+        break;
+
 
     case 27:	// Escape key
         exit(1);
