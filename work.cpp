@@ -53,15 +53,68 @@ float fan_angle = 1;
 
 
 
+GLuint LoadTexture( const char * filename, int x, int y )
+{
+  GLuint texture;
+  int width, height;
+  unsigned char * data;
+
+  FILE * file;
+  file = fopen( filename, "rb" );
+
+  if ( file == NULL ) return 0;
+  width = x;
+  height = y;
+  data = (unsigned char *)malloc( width * height * 3 );
+  //int size = fseek(file,);
+  fread( data, width * height * 3, 1, file );
+  fclose( file );
+
+  for(int i = 0; i < width * height ; ++i)
+  {
+    int index = i*3;
+    unsigned char B,R;
+    B = data[index];
+    R = data[index+2];
+
+    data[index] = R;
+    data[index+2] = B;
+  }
+
+  glGenTextures( 1, &texture );
+  glBindTexture( GL_TEXTURE_2D, texture );
+//   glBindTexture (GL_TEXTURE_2D, texture);
+  glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE,GL_MODULATE );
+  glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_NEAREST );
+
+  glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
+  glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,GL_REPEAT );
+  glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,GL_REPEAT );
+  gluBuild2DMipmaps( GL_TEXTURE_2D, 3, width, height,GL_RGB, GL_UNSIGNED_BYTE, data );
+  free( data );
+
+  return texture;
+}
+
+
+
+
 
 void drawFloor()
 {
+
+
+    glEnable(GL_TEXTURE_2D);
     glPushMatrix();
-        glTranslatef(-15,-5,5);
+
+       glTranslatef(-15,-5,5);
         glScalef(30,0.5,30);
         // drawCube(30,0.5,30);
         drawCube(1,1,1);
+
     glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+
 }
 
 void drawRight()
@@ -432,7 +485,7 @@ void drawSetChair()
     GLfloat mat_ambient[] = { 0.5, 0.0, 0.0, 1.0 };
     //GLfloat mat_diffuse[] = { 0.5, 0.0, 0.0, 1.0 };
     GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-    GLfloat mat_shininess[] = {60};
+    GLfloat mat_shininess[] = {1000};
 
     glMaterialfv( GL_FRONT, GL_AMBIENT, mat_diffuse[5]);
     glMaterialfv( GL_FRONT, GL_DIFFUSE, mat_diffuse[5]);
@@ -618,8 +671,8 @@ void drawPreFan(float fan_height)
 
 void drawFan(float fan_height)
 {
-    GLfloat no_mat[] = { 0.0, 0.0, 0.0, 1.0 };
-    GLfloat mat_ambient[] = { 0.5, 0.0, 0.0, 1.0 };
+    // GLfloat no_mat[] = { 0.0, 0.0, 0.0, 1.0 };
+    // GLfloat mat_ambient[] = { 0.5, 0.0, 0.0, 1.0 };
     //GLfloat mat_diffuse[] = { 0.5, 0.0, 0.0, 1.0 };
     GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
     GLfloat mat_shininess[] = {60};
@@ -650,14 +703,47 @@ void drawStairs()
         }
 }
 
-GLfloat zz = 0,xx = 2, cc = 0;
+
+
+void drawGrass()
+{
+    GLfloat mat_ambient[] = { 1.0, 1.0, 1.0, 1.0 };
+    GLfloat mat_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
+    GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+    GLfloat mat_shininess[] = {60};
+
+    glMaterialfv( GL_FRONT, GL_AMBIENT, mat_ambient);
+    glMaterialfv( GL_FRONT, GL_DIFFUSE, mat_diffuse);
+    glMaterialfv( GL_FRONT, GL_SPECULAR, mat_specular);
+    glMaterialfv( GL_FRONT, GL_SHININESS, mat_shininess);
+
+    glEnable(GL_TEXTURE_2D);
+    glPushMatrix();
+
+        glTranslatef(-20,-10,10);
+        drawCube(50,0.2,50);
+
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+}
+
+
+
+
+
+
+GLfloat zz = 0,xx = 2, cc = 1;
 
 float l_height = 15;
 float spt_cutoff = 30;
 
 float rot = 0;
 
-bool l_on = false;
+bool l_on = true;
+
+bool am_on = true;
+bool dif_on = true;
+bool spec_on = true;
 
 void light()
 {
@@ -668,6 +754,8 @@ void light()
         GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
         GLfloat light_position[] = { zz, xx, cc, 0.0 };
         // GLfloat spot_direction[] = { 0.0, -1.0, 0.0 };
+
+      
 
         glEnable(GL_LIGHT0);
 
@@ -720,7 +808,7 @@ void light()
     // glEnable(GL_LIGHT1);
 }
 
-
+float p = 1;
 
 void display(void)
 {
@@ -738,6 +826,7 @@ void display(void)
     //glRotatef(30, 0, 0, 1 );
     //glScalef(1.5,1.5,1.5);
 
+    glScalef(p,p,p);
 
     glRotatef( angle_x,axis_x, axis_y, 0.0 );
     glRotatef( angle_y, axis_x, axis_y, 0.0 );
@@ -758,7 +847,7 @@ void display(void)
     drawStairs();
     glPopMatrix();
 
-   
+
 
     float x,y,z;
     x = -4.5;
@@ -898,14 +987,17 @@ void myKeyboardFunc( unsigned char key, int x, int y )
 
     case 'h':
         eyey++;
+        dy++;
         break;
 
     case 'n':
         eyey--;
+        dy--;
         break;
 
     case 'b':
         eyex++;
+        
         break;
     
     case 'm':
@@ -928,6 +1020,17 @@ void myKeyboardFunc( unsigned char key, int x, int y )
         axis_y=1.0;
         break;
 
+    case '4':
+        p+=0.2;
+        break;
+    case '$':
+        p-=0.2;
+    case '5':
+        fdist +=0.5;
+        break;
+    case '%':
+        fdist -= 0.5;
+        break;
     // case 'g':
     case '7':
         yRotate = !yRotate;
@@ -1064,6 +1167,10 @@ int main (int argc, char **argv)
     glEnable(GL_NORMALIZE);
     glEnable(GL_LIGHTING);
     // light();
+
+     GLuint texture;
+    // texture= LoadTexture(1,"brick.bmp",316,316);
+    texture= LoadTexture("grasss.bmp", 564, 429);
     
 
     glutKeyboardFunc(myKeyboardFunc);

@@ -29,6 +29,18 @@ double yaw =0, pitch= 0, roll = 0;
 
 void drawStairs()
 {
+
+    GLfloat no_mat[] = { 0.0, 0.0, 0.0, 1.0 };
+    GLfloat mat_ambient[] = { 0.5, 0.0, 0.0, 1.0 };
+    //GLfloat mat_diffuse[] = { 0.5, 0.0, 0.0, 1.0 };
+    GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+    GLfloat mat_shininess[] = {60};
+
+    glMaterialfv( GL_FRONT, GL_AMBIENT, mat_diffuse[1]);
+    glMaterialfv( GL_FRONT, GL_DIFFUSE, mat_diffuse[1]);
+    glMaterialfv( GL_FRONT, GL_SPECULAR, mat_specular);
+    glMaterialfv( GL_FRONT, GL_SHININESS, mat_shininess);
+
     int cnt = 0;
     glBegin(GL_QUADS);
     float ss = 0.0f;
@@ -129,6 +141,17 @@ void drawStairs()
 
 void drawStairs2()
 {
+    GLfloat no_mat[] = { 0.0, 0.0, 0.0, 1.0 };
+    GLfloat mat_ambient[] = { 0.5, 0.0, 0.0, 1.0 };
+    //GLfloat mat_diffuse[] = { 0.5, 0.0, 0.0, 1.0 };
+    GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+    GLfloat mat_shininess[] = {60};
+
+    glMaterialfv( GL_FRONT, GL_AMBIENT, mat_diffuse[1]);
+    glMaterialfv( GL_FRONT, GL_DIFFUSE, mat_diffuse[1]);
+    glMaterialfv( GL_FRONT, GL_SPECULAR, mat_specular);
+    glMaterialfv( GL_FRONT, GL_SHININESS, mat_shininess);
+
     int cnt = 0;
     glBegin(GL_QUADS);
     float ss = 0.5f;
@@ -235,6 +258,18 @@ void drawStairs2()
 
 void drawWall_left()
 {
+
+    GLfloat no_mat[] = { 0.0, 0.0, 0.0, 1.0 };
+    GLfloat mat_ambient[] = { 0.5, 0.0, 0.0, 1.0 };
+    //GLfloat mat_diffuse[] = { 0.5, 0.0, 0.0, 1.0 };
+    GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+    GLfloat mat_shininess[] = {60};
+
+    glMaterialfv( GL_FRONT, GL_AMBIENT, mat_diffuse[1]);
+    glMaterialfv( GL_FRONT, GL_DIFFUSE, mat_diffuse[1]);
+    glMaterialfv( GL_FRONT, GL_SPECULAR, mat_specular);
+    glMaterialfv( GL_FRONT, GL_SHININESS, mat_shininess);
+
     glBegin(GL_QUADS);
     glColor3f(0,1,1);
     glNormal3f(-1.0f, 0.0f, 0.0f);
@@ -247,6 +282,18 @@ void drawWall_left()
 
 void drawWall_back()
 {
+
+    GLfloat no_mat[] = { 0.0, 0.0, 0.0, 1.0 };
+    GLfloat mat_ambient[] = { 0.5, 0.0, 0.0, 1.0 };
+    //GLfloat mat_diffuse[] = { 0.5, 0.0, 0.0, 1.0 };
+    GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+    GLfloat mat_shininess[] = {60};
+
+    glMaterialfv( GL_FRONT, GL_AMBIENT, mat_diffuse[1]);
+    glMaterialfv( GL_FRONT, GL_DIFFUSE, mat_diffuse[1]);
+    glMaterialfv( GL_FRONT, GL_SPECULAR, mat_specular);
+    glMaterialfv( GL_FRONT, GL_SHININESS, mat_shininess);
+
     glBegin(GL_QUADS);
     glColor3f(0,1,1);
     glNormal3f(0.0f, 0.0f, -1.0f);
@@ -259,6 +306,18 @@ void drawWall_back()
 
 void drawWall_right()
 {
+
+    GLfloat no_mat[] = { 0.0, 0.0, 0.0, 1.0 };
+    GLfloat mat_ambient[] = { 0.5, 0.0, 0.0, 1.0 };
+    //GLfloat mat_diffuse[] = { 0.5, 0.0, 0.0, 1.0 };
+    GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+    GLfloat mat_shininess[] = {60};
+
+    glMaterialfv( GL_FRONT, GL_AMBIENT, mat_diffuse[1]);
+    glMaterialfv( GL_FRONT, GL_DIFFUSE, mat_diffuse[1]);
+    glMaterialfv( GL_FRONT, GL_SPECULAR, mat_specular);
+    glMaterialfv( GL_FRONT, GL_SHININESS, mat_shininess);
+
     glBegin(GL_QUADS);
     glColor3f(0,1,1);
     glNormal3f(1.0f, 0.0f, 0.0f);
@@ -271,6 +330,18 @@ void drawWall_right()
 
 void drawFloor()
 {
+
+    GLfloat no_mat[] = { 0.0, 0.0, 0.0, 1.0 };
+    GLfloat mat_ambient[] = { 0.5, 0.0, 0.0, 1.0 };
+    //GLfloat mat_diffuse[] = { 0.5, 0.0, 0.0, 1.0 };
+    GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+    GLfloat mat_shininess[] = {60};
+
+    glMaterialfv( GL_FRONT, GL_AMBIENT, mat_diffuse[1]);
+    glMaterialfv( GL_FRONT, GL_DIFFUSE, mat_diffuse[1]);
+    glMaterialfv( GL_FRONT, GL_SPECULAR, mat_specular);
+    glMaterialfv( GL_FRONT, GL_SHININESS, mat_shininess);
+
     glBegin(GL_QUADS);
         glNormal3f(0.0f, 0.0f, 1.0f);
         glVertex3f(-10.0f, -0.5f, 10.0f);
@@ -415,6 +486,18 @@ void drawSofa2()
 
 void drawMulSofa()
 {
+
+    GLfloat no_mat[] = { 0.0, 0.0, 0.0, 1.0 };
+    GLfloat mat_ambient[] = { 0.5, 0.0, 0.0, 1.0 };
+    //GLfloat mat_diffuse[] = { 0.5, 0.0, 0.0, 1.0 };
+    GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+    GLfloat mat_shininess[] = {60};
+
+    glMaterialfv( GL_FRONT, GL_AMBIENT, mat_diffuse[3]);
+    glMaterialfv( GL_FRONT, GL_DIFFUSE, mat_diffuse[3]);
+    glMaterialfv( GL_FRONT, GL_SPECULAR, mat_specular);
+    glMaterialfv( GL_FRONT, GL_SHININESS, mat_shininess);
+
     glTranslatef(-1,0,-1);
     drawSofa();
     glTranslatef(1,0,1);
@@ -443,6 +526,18 @@ void drawMulSofa()
 
 void drawDoor()
 {
+
+    GLfloat no_mat[] = { 0.0, 0.0, 0.0, 1.0 };
+    GLfloat mat_ambient[] = { 0.5, 0.0, 0.0, 1.0 };
+    //GLfloat mat_diffuse[] = { 0.5, 0.0, 0.0, 1.0 };
+    GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+    GLfloat mat_shininess[] = {60};
+
+    glMaterialfv( GL_FRONT, GL_AMBIENT, mat_diffuse[2]);
+    glMaterialfv( GL_FRONT, GL_DIFFUSE, mat_diffuse[2]);
+    glMaterialfv( GL_FRONT, GL_SPECULAR, mat_specular);
+    glMaterialfv( GL_FRONT, GL_SHININESS, mat_shininess);
+
     glColor3f(0.8, 0.8, 0.8);
     glTranslatef(-10,0,5);
     drawCube(0.2,7,2.5);
@@ -607,9 +702,16 @@ void drawFan(float fan_height)
     glMaterialfv( GL_FRONT, GL_DIFFUSE, mat_diffuse[6]);
     glMaterialfv( GL_FRONT, GL_SPECULAR, mat_specular);
     glMaterialfv( GL_FRONT, GL_SHININESS, mat_shininess);
-    glTranslatef(3,0,3);
+    
+    glPushMatrix();
+    glTranslatef(5,0,6);
+    glRotatef(-90,0,1,0);
    drawPreFan(fan_height);
-    glTranslatef(-3,0,-3);
+    glTranslatef(-5,0,-6);
+
+    glPopMatrix();
+
+    
 
 }
 
@@ -706,13 +808,14 @@ void display(void)
     glFlush();
     glutSwapBuffers();
 }
+float fan_speed = 0.5;
 
 
 void myKeyboardFunc( unsigned char key, int x, int y )
 {
     switch ( key )
     {
-    case '8':
+    case 'f':
     // case 'S':
         bRotate = !bRotate;
         uRotate = false;
@@ -773,6 +876,12 @@ void myKeyboardFunc( unsigned char key, int x, int y )
         uZ-=0.2; 
         break;
 
+    case 'b':
+        fan_speed += 0.5;
+        break;
+    case 'B':
+        fan_speed -= 0.5;
+        break;
 
     case 27:	// Escape key
         exit(1);
@@ -780,19 +889,18 @@ void myKeyboardFunc( unsigned char key, int x, int y )
 }
 
 
-
 void animate()
 {
     if (bRotate == true)
     {
-        theta += 0.2;
+        theta += fan_speed;
         if(theta > 360.0)
             theta -= 360.0*floor(theta/360.0);
     }
 
     if (uRotate == true)
     {
-        alpha += 0.2;
+        alpha += 1;
         if(alpha > 360.0)
             alpha -= 360.0*floor(alpha/360.0);
     }
@@ -804,7 +912,7 @@ void light()
 {
     GLfloat no_light[] = { 0.0, 0.0, 0.0, 1.0 };
 
-    GLfloat light1_ambient[]  = {1.0, 1.0, 1.0, 1.0};
+    GLfloat light1_ambient[]  = {0.0, 0.0, 0.0, 1.0};
     GLfloat light1_diffuse[]  = { 1.0, 1.0, 1.0, 1.0 };
     GLfloat light1_specular[] = { 1.0, 1.0, 1.0, 1.0 };
     GLfloat light1_position[] = { 0.0, 40.0, -1.0, 1.0 };
@@ -815,20 +923,20 @@ void light()
     glLightfv( GL_LIGHT0, GL_SPECULAR, light1_specular);
     glLightfv( GL_LIGHT0, GL_POSITION, light1_position);
 
-    GLfloat spot_direction[] = { 0.0, -1.0, 0.0 };
-    glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spot_direction);
-    glLightf( GL_LIGHT0, GL_SPOT_CUTOFF, 10.0);
+    // GLfloat spot_direction[] = { 0.0, -1.0, 0.0 };
+    // glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spot_direction);
+    // glLightf( GL_LIGHT0, GL_SPOT_CUTOFF, 10.0);
 
-    GLfloat light2_ambient[]  = {0.8, 0.05, 0.05, 1.0};
-    GLfloat light2_diffuse[] =  {0.8, 0.05, 0.05, 1.0};
-    GLfloat light2_specular[] = { 1.0, 0.1, 0.1, 1.0 };
-    GLfloat light2_position[] = { -4.0, 0.0, -1.0, 1.0 };
+    // GLfloat light2_ambient[]  = {0.8, 0.05, 0.05, 1.0};
+    // GLfloat light2_diffuse[] =  {0.8, 0.05, 0.05, 1.0};
+    // GLfloat light2_specular[] = { 1.0, 0.1, 0.1, 1.0 };
+    // GLfloat light2_position[] = { -4.0, 0.0, -1.0, 1.0 };
 
-    glEnable( GL_LIGHT1);
-    glLightfv( GL_LIGHT1, GL_AMBIENT, light2_ambient);
-    glLightfv( GL_LIGHT1, GL_DIFFUSE, light2_diffuse);
-    glLightfv( GL_LIGHT1, GL_SPECULAR, light2_specular);
-    glLightfv( GL_LIGHT1, GL_POSITION, light2_position);
+    // glEnable( GL_LIGHT1);
+    // glLightfv( GL_LIGHT1, GL_AMBIENT, light2_ambient);
+    // glLightfv( GL_LIGHT1, GL_DIFFUSE, light2_diffuse);
+    // glLightfv( GL_LIGHT1, GL_SPECULAR, light2_specular);
+    // glLightfv( GL_LIGHT1, GL_POSITION, light2_position);
 }
 
 int main (int argc, char **argv)
