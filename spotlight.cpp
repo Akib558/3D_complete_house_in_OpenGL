@@ -17,7 +17,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
-
+#include "modules.h"
 #ifdef __APPLE__
 #  include <GLUT/glut.h>
 #else
@@ -132,6 +132,7 @@ void drawScene()
 
    glPopMatrix();
 
+ 
    // Draw 10 x 10 array of multi-colored spheres.
    int i,j;
    for (i = 0; i < 9; i++)
