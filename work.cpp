@@ -940,11 +940,11 @@ void display(void)
 {
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
-    glMatrixMode( GL_PROJECTION );
-    glLoadIdentity();
-    glFrustum(-5+lpan, 5+rpan, -4, 5, fdist+5, 60.0);
+    // glMatrixMode( GL_PROJECTION );
+    // glLoadIdentity();
+    // glFrustum(-5+lpan, 5+rpan, -4, 5, fdist+5, 60.0);
 
-    glMatrixMode( GL_MODELVIEW );
+    // glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
     gluLookAt(eyex,eyey,eyez, x+dx,y+dy,z+dz, xaxis,yaxis,zaxis); // camera , ,
     glViewport(0, 0, windowHeight, windowWidth);
@@ -1274,8 +1274,35 @@ void animate()
 
 }
 
+void reshape(GLsizei width, GLsizei height) {  // GLsizei for non-negative integer
+   // Compute aspect ratio of the new window
+   if (height == 0) height = 1;                // To prevent divide by 0
+   GLfloat aspect = (GLfloat)width / (GLfloat)height;
+ 
+   // Set the viewport to cover the new window
+   glViewport(0, 0, width, height);
+ 
+   // Set the aspect ratio of the clipping area to match the viewport
+   glMatrixMode(GL_PROJECTION);  // To operate on the Projection matrix
+   glLoadIdentity();             // Reset the projection matrix
+   if (width >= height) {
+     // aspect >= 1, set the height from -1 to 1, with larger width
+      gluOrtho2D(-1.0 * aspect, 1.0 * aspect, -1.0, 1.0);
+   } else {
+      // aspect < 1, set the width to -1 to 1, with larger height
+     gluOrtho2D(-1.0, 1.0, -1.0 / aspect, 1.0 / aspect);
+   }
+}
 
-
+void resize (int w, int h)
+{
+   glViewport (0, 0, (GLsizei)w, (GLsizei)h);
+   glMatrixMode (GL_PROJECTION);
+   glLoadIdentity();
+   gluPerspective(100.0, (float)w/(float)h, 1.0, 1000.0);
+   glMatrixMode(GL_MODELVIEW);
+   glLoadIdentity();
+}
 
 
 int main (int argc, char **argv)
@@ -1300,12 +1327,15 @@ int main (int argc, char **argv)
 
      GLuint texture;
     // texture= LoadTexture(1,"brick.bmp",316,316);
-    texture= LoadTexture("grass_2.bmp", 2000, 1338);
+    texture= LoadTexture("images/p1.bmp", 2000, 1338);
     
 
     glutKeyboardFunc(myKeyboardFunc);
     glutDisplayFunc(display);
+    glutReshapeFunc(resize);
+    
     glutIdleFunc(animate);
+    // glutReshapeFunc(reshape);
     glutMainLoop();
 
     return 0;
