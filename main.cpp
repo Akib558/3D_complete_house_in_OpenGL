@@ -12,6 +12,8 @@
 #define push glPushMatrix
 #define pop glPopMatrix
 #define gt(x,y,z) glTranslatef(x,y,z)
+#define te(x) glEnable(GL_TEXTURE_2D),glBindTexture(GL_TEXTURE_2D, x)
+#define td() glDisable(GL_TEXTURE_2D)
 
 
 using namespace std;
@@ -27,6 +29,23 @@ double xaxis = 0, yaxis = 1, zaxis = 0;
 GLfloat alpha = 0.0, theta = 0.0, axis_x=0.0, axis_y=0.0, angle_x = 0.0, angle_y = 0.0;
 GLboolean bRotate = false, uRotate = false, xRotate = false, yRotate = false;
 
+float door_1_angle = 0;
+float door_2_angle = 0;
+float door_3_angle = 0;
+float door_4_angle = 0;
+float door_5_angle = 0;
+
+
+
+
+
+
+
+
+
+
+
+
 
 float fan_height = 7.5;
 float fan_angle = 1;
@@ -41,13 +60,13 @@ GLuint texture[10];
  GLfloat mat_diffuse[][4] = {
         { 0.4, 0.4, 0.4, 1.0 },
         { 0.7, 0.7, 0.7, 1.0 },
-        { 0.1, 0.2, 0.4, 1.0 },
-        { 0.8, 0.1, 0.2, 1.0 },
+        { 0.2, 0.2, 0.4, 1.0 },
+        { 0.8, 0.2, 0.2, 1.0 },
         { 1.0, 0.64, 0.0, 1.0 },
         { 0.59, 0.44, 0.2, 1.0 },
         { 0.23, 0.37, 0.04, 1.0 },
         { 0.44, 0.33, 0.22, 1.0 },
-        { 0.1, 0.1, 0.1, 1.0 }
+        { 0.2, 0.2, 0.2, 1.0 }
     };
 
 
@@ -59,7 +78,7 @@ void resize (int w, int h)
    glViewport (0, 0, (GLsizei)w, (GLsizei)h);
    glMatrixMode (GL_PROJECTION);
    glLoadIdentity();
-   gluPerspective(110.0, (float)w/(float)h, 1.0, 1000.0);
+   gluPerspective(90.0, (float)w/(float)h, 1.0, 1000.0);
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity();
 }
@@ -141,7 +160,7 @@ void light()
         GLfloat light_ambient_1[] = { 0.0, 0.0, 0.0, 1.0 };
         GLfloat light_diffuse_1[] = { 0.3, 0.6, 0.7, 1.0 };
         GLfloat light_specular_1[] = { 1.0, 1.0, 1.0, 1.0 };
-        GLfloat light_position_1[] = { zz, xx, cc, 0.0 };
+        GLfloat light_position_1[] = { -50, 1, -80, 0.0 };
         // GLfloat spot_direction[] = { 0.0, -1.0, 0.0 };
 
       
@@ -235,6 +254,21 @@ void light()
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////// objects
 
+void disable_mat()
+{
+    GLfloat no_mat[] = { 0.0, 0.0, 0.0, 1.0 };
+    GLfloat mat_ambient[] = { 1, 1.0, 1.0, 1.0 };
+    GLfloat mat_diffuse[] = { 1, 1.0, 1.0, 1.0 };
+    GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+    GLfloat mat_shininess[] = {60};
+
+    glMaterialfv( GL_FRONT, GL_AMBIENT, mat_diffuse);
+    glMaterialfv( GL_FRONT, GL_DIFFUSE, mat_diffuse);
+    glMaterialfv( GL_FRONT, GL_SPECULAR, mat_specular);
+    glMaterialfv( GL_FRONT, GL_SHININESS, mat_shininess);
+}
+
+
 void drawFench()
 {
     push();
@@ -244,8 +278,10 @@ void drawFench()
     gt(-2,-2.1,0);
     for(int i = 0; i <= 91; i++)
     {
+        te(texture[2]);
         gt(2,0,0);
         drawCube(0.5,2,0.2);
+        td();
     }
     pop();
 }
@@ -254,14 +290,14 @@ void drawOutside()
 {  
     push();
         
-        glEnable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D, texture[0]);
+        // glEnable(GL_TEXTURE_2D),glBindTexture(GL_TEXTURE_2D, texture[0]);
+        te(texture[0]);
         gt(-100,0,0);
         drawCube(200,0.001,200);
         gt(100,0,0);
-
-        glDisable(GL_TEXTURE_2D);
+        td();
     pop();
+    
     push();
         gt(-95,0,-5);
         drawFench();
@@ -285,6 +321,240 @@ void drawOutside()
 
 
 
+void drawHome()
+{
+    push();
+        gt(10,0,-30);
+        drawCube(50,15,1);
+    pop();
+    push();
+        gt(-70,0,-50);
+        drawCube(80,15,1);
+    pop();
+    push();
+        gt(-70,0,-50);
+        drawCube(1,15,120);
+    pop();
+    push();
+        gt(-70,0,-50);
+        drawCube(1,15,120);
+    pop();
+    
+    push();
+        gt(-70,0,-90);
+        drawCube(70,15,1);
+    pop();
+    push();
+        gt(-70,0,-130);
+        drawCube(70,15,1);
+    pop();
+    push();
+        gt(-70,0,-170);
+        drawCube(70,15,1);
+    pop();
+    push();
+        gt(0,0,-57);
+        drawCube(1,15,33);
+    pop();
+    push();
+        gt(0,0,-97);
+        drawCube(1,15,33);
+    pop();
+    push();
+        gt(0,0,-137);
+        drawCube(1,15,33);
+    pop();
+
+    push();
+        gt(60,0,-30);
+        drawCube(1,15,140);
+    pop();
+    push();
+        gt(0,0,-170);
+        drawCube(60,15,1);
+    pop();
+
+
+
+    push();
+        gt(20,0,-90);
+        drawCube(40,15,1);
+    pop();
+    push();
+        gt(20,0,-130);
+        drawCube(40,15,1);
+    pop();
+    push();
+        gt(20,0,-97);
+        drawCube(1,15,33);
+    pop();
+    push();
+        gt(20,0,-137);
+        drawCube(1,15,33);
+    pop();
+}
+
+void drawSofa()
+{
+    //////glcolor3f(0.9, 0.9, 0.9);
+    glTranslatef(-4,0,8);
+    drawCube(0.3,2.5,5);
+    glTranslatef(4,0,-8);
+    
+    //////glcolor3f(0.1, 0.1, 0.1);
+    glTranslatef(-3.7,0,8.1);
+    drawCube(1.5,2,0.3);
+    glTranslatef(3.7,0,-8.1);
+
+    glTranslatef(-3.7,0,3);
+    drawCube(1.5,2,0.3);
+    glTranslatef(3.7,0,-3);
+
+    //////glcolor3f(0.7, 0.7, 0.7);
+
+    glTranslatef(-3.7,0.5,8);
+    drawCube(1.2,0.2,5);
+    glTranslatef(3.7,-0.5,-8);
+
+}
+
+void drawSofa2()
+{
+    //////glcolor3f(0.9, 0.9, 0.9);
+    glTranslatef(-4,0,8);
+    drawCube(0.3,2.5,3);
+    glTranslatef(4,0,-8);
+    
+    //////glcolor3f(0.1, 0.1, 0.1);
+    glTranslatef(-3.7,0,8.1);
+    drawCube(1.5,2,0.3);
+    glTranslatef(3.7,0,-8.1);
+
+    glTranslatef(-3.7,0,5);
+    drawCube(1.5,2,0.3);
+    glTranslatef(3.7,0,-5);
+
+    //////glcolor3f(0.7, 0.7, 0.7);
+
+    glTranslatef(-3.7,0.5,8);
+    drawCube(1.2,0.2,3);
+    glTranslatef(3.7,-0.5,-8);
+
+}
+
+
+void drawMulSofa()
+{
+    push();
+    // glEnable(GL_COLOR_MATERIAL);
+    GLfloat no_mat[] = { 0.0, 0.0, 0.0, 1.0 };
+    GLfloat mat_ambient[] = { 1, 1.0, 1.0, 1.0 };
+    GLfloat mat_diffuse[] = { 0.8, 0.0, 0.5, 1.0 };
+    GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+    GLfloat mat_shininess[] = {60};
+
+    glMaterialfv( GL_FRONT, GL_AMBIENT, mat_diffuse);
+    glMaterialfv( GL_FRONT, GL_DIFFUSE, mat_diffuse);
+    glMaterialfv( GL_FRONT, GL_SPECULAR, mat_specular);
+    glMaterialfv( GL_FRONT, GL_SHININESS, mat_shininess);
+    glTranslatef(-1,0,-1);
+    drawSofa();
+    glTranslatef(1,0,1);
+
+    glTranslatef(-2,0,10);
+    glRotatef(180,0,1,0);
+    drawSofa();
+    glRotatef(-180,0,1,0);
+    glTranslatef(2,0,-10);
+
+    glTranslatef(4.5,0,3);
+    glRotatef(-90,0,1,0);
+    drawSofa2();
+    glRotatef(90,0,1,0);
+    glTranslatef(4.5,0,-3);
+
+    glTranslatef(-17,0,5.5);
+    glRotatef(90,0,1,0);
+    drawSofa2();
+    glRotatef(90,0,1,0);
+    glTranslatef(17,0,-5.5);
+    // glDisable(GL_COLOR_MATERIAL);
+
+    disable_mat();
+    
+    pop();
+}
+
+
+void drawSofas()
+{
+    push();
+        gt(-30,0,-80);
+        glScalef(3,2,2);
+        drawMulSofa();
+    pop();
+}
+
+bool door_1_stat = false;
+bool door_2_stat = false;
+bool door_3_stat = false;
+bool door_4_stat = false;
+bool door_5_stat = false;
+
+
+void drawDoor_1(bool x, float& angle, bool pp = true)
+{
+    push();
+        // if(door_1_stat)
+        glRotatef(angle,0,1,0);
+        if(pp){
+            glScalef(1,1,-1);
+        }
+        drawCube(1,15,6);
+        if(x)
+        {
+            if(angle < 90)
+            angle++;
+        }
+        else
+        {
+            if(angle > 0)
+                angle--;
+        }
+        
+    pop();
+}
+
+
+
+void doors()
+{
+    te(texture[5]);
+
+    push();
+        gt(0,0,-137);
+        drawDoor_1(door_1_stat, door_1_angle);
+    pop();
+    push();
+        gt(0,0,-97);
+        drawDoor_1(door_2_stat, door_2_angle);
+    pop();
+    push();
+        gt(0,0,-57);
+        drawDoor_1(door_3_stat, door_3_angle);
+    pop();
+    push();
+        gt(20,0,-90);
+        drawDoor_1(door_4_stat, door_4_angle, false);
+    pop();
+    push();
+        gt(20,0,-130);
+        drawDoor_1(door_5_stat, door_5_angle, false);
+    pop();
+
+
+    td();
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////// objects
 
@@ -301,11 +571,33 @@ void display(){
 
     ////////////////////////// drawing start
 
+    // glRotatef(70,1,0,0);
 
+    glRotatef( angle_x,axis_x, axis_y, 0.0 );
+    glRotatef( angle_y, axis_x, axis_y, 0.0 );
 
-    glPushMatrix();
+    push();
         drawOutside();
-    glPopMatrix();  
+    pop();
+
+    push();
+        te(texture[4]);
+        drawHome();
+        td();
+    pop();
+
+    push();
+        drawSofas();
+    pop();
+
+
+    push();
+        doors();
+    pop();
+    // push();
+    //     drawCube(1,1,1);
+    //     glutSolidCube(1);
+    // pop();
     
     // glPushMatrix();
     // glTranslatef(0,2,-3);
@@ -422,8 +714,21 @@ void myKeyboardFunc( unsigned char key, int x, int y )
     //     break;
 
     case 'h':
-        eyey++;
-        dy++;
+
+        door_1_stat = 1-door_1_stat;
+        break;
+    case 'j':
+        door_2_stat = 1- door_2_stat;
+        break;
+
+    case 'k':
+        door_3_stat = 1- door_3_stat;
+        break;
+    case 'l':
+        door_4_stat = 1- door_4_stat;
+        break;
+    case ';':
+        door_5_stat = 1- door_5_stat;
         break;
 
     case 'n':
@@ -496,24 +801,24 @@ void myKeyboardFunc( unsigned char key, int x, int y )
 //yaw
     case 'd':
         y=y;
-        dx += 0.1;
+        dx += 0.5;
         break;
 
     case 'a':
 
         y=y;
-        dx -= 0.1;
+        dx -= 0.5;
         break;
 //pitch
 
     case 'w':
         x=x;
-        dy += 0.2;
+        dy += 0.5;
         break;
 
     case 's':
         x=x;
-        dy -= 0.2;
+        dy -= 0.5;
 
         break;
 
@@ -651,7 +956,6 @@ void animate()
 
 
 
-
 int main (int argc, char **argv)
 {
 
@@ -669,7 +973,13 @@ int main (int argc, char **argv)
 
     texture[0] = LoadTexture("images/p1.bmp", 2000, 1338);
     texture[1] = LoadTexture("im1.bmp", 640, 640);      
+    texture[2] = LoadTexture("images/wood_1.bmp", 500, 800);
+    texture[3] = LoadTexture("images/wall2.bmp", 359, 350);
+    texture[4] = LoadTexture("images/wall3.bmp", 1000, 1000);
+    texture[5] = LoadTexture("images/door.bmp", 632, 1264);
 
+
+ 
     // light();
 
 
@@ -758,7 +1068,7 @@ int main (int argc, char **argv)
 //     glMaterialfv( GL_FRONT, GL_SPECULAR, mat_specular);
 //     // glMaterialfv( GL_FRONT, GL_SHININESS, mat_shininess);
     
-//     drawCube(10,10,0.1);
+//     drawCube(10,10,0.2);
 
 //     // for(float i = 0; i < 50; i+=0.5)
 //     // {
@@ -786,7 +1096,7 @@ int main (int argc, char **argv)
 //     // // glMaterialfv( GL_FRONT, GL_DIFFUSE, mat_diffuse[0]);
 //     // glMaterialfv( GL_FRONT, GL_SPECULAR, mat_specular);
 //     // glMaterialfv( GL_FRONT, GL_SHININESS, mat_shininess);
-//     //////glcolor3f(0.1,0.1,0.1);
+//     //////glcolor3f(0.2,0.2,0.2);
 //     // glEnable(GL_TEXTURE_2D);
 //     // drawFloor2();
 //     // gluSphere(1,10,10);
