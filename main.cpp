@@ -194,7 +194,9 @@ void light()
         GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
         GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
         GLfloat light_position[] = { zz, xx, cc, 1.0 };
-        GLfloat spot_direction[] = {-1.0-l_x, -1.0-l_y, -1.0-l_z };
+        // GLfloat spot_direction[] = {-1.0-l_x, -1.0-l_y, -1.0-l_z };
+        GLfloat spot_direction[] = {0, -1.0, 0 };
+
         float globAmb[] = { 0.05, 0.05, 0.05, 1.0 };
 
 
