@@ -7,6 +7,7 @@
 #include <fstream>
 #include <iostream>
 #include "modules.h"
+#include <math.h>
 
 
 #define push glPushMatrix
@@ -38,12 +39,18 @@ float door_5_angle = 0;
 
 
 
+float view_angle_x = 1;
+float view_angle_y = 1;
+float view_angle_z = 1;
+float view_angle_value_x = 0;
+float view_angle_value_y = 0;
+float view_angle_value_z = 0;
 
 
 
 
-
-
+float p_zoom = 90;
+float s_zoom = 1;
 
 
 
@@ -78,7 +85,7 @@ void resize (int w, int h)
    glViewport (0, 0, (GLsizei)w, (GLsizei)h);
    glMatrixMode (GL_PROJECTION);
    glLoadIdentity();
-   gluPerspective(90.0, (float)w/(float)h, 1.0, 1000.0);
+   gluPerspective(p_zoom, (float)w/(float)h, 1.0, 1000.0);
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity();
 }
@@ -516,12 +523,12 @@ void drawDoor_1(bool x, float& angle, bool pp = true)
         if(x)
         {
             if(angle < 90)
-            angle++;
+            angle+=10;
         }
         else
         {
             if(angle > 0)
-                angle--;
+                angle-=10;
         }
         
     pop();
@@ -577,6 +584,12 @@ void display(){
 
     glRotatef( angle_x,axis_x, axis_y, 0.0 );
     glRotatef( angle_y, axis_x, axis_y, 0.0 );
+
+    glRotatef( 1, 0, 0, view_angle_value_x);
+    glRotatef( 0, view_angle_value_y, 0, view_angle_value_y);
+    glRotatef( 0, 0, view_angle_value_z, view_angle_value_z);
+
+    glScalef(s_zoom, s_zoom, s_zoom);
 
     push();
         drawOutside();
@@ -696,10 +709,16 @@ void myKeyboardFunc( unsigned char key, int x, int y )
 
 
     case '=':
-        eyez--;
+        eyez-=abs(eyez-z-dz)/100;
+        eyey-=abs(eyey-y-dy)/100;
+        // p_zoom++;
+        // s_zoom+=0.1;
         break;
     case '-':
-        eyez++;
+        eyez+=abs(eyez-z-dz)/100;
+        eyey+=abs(eyey-y-dy)/100;
+        // p_zoom--;
+        // s_zoom-=0.1;
         break;
 
     // //panning
@@ -823,6 +842,19 @@ void myKeyboardFunc( unsigned char key, int x, int y )
         dy -= 0.5;
 
         break;
+
+    // case 'w':
+    //     view_angle_value_x+=0.5;
+    //     break;
+    // case 's':
+    //     view_angle_value_x-=0.5;
+    //     break;
+    // case 'a':
+    //     view_angle_value_y+=0.5;
+    //     break;
+    // case 'd':
+    //     view_angle_value_y-=0.5;
+    //     break;
 
 //roll
     case 'r':
