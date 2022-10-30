@@ -105,7 +105,7 @@ void resize (int w, int h)
 GLfloat zz = 21,xx = 16, cc = 34;
 
 float l_height = 15;
-float spt_cutoff = 30;
+float spt_cutoff = 40;
 
 float rot = 0;
 
@@ -167,7 +167,7 @@ void light()
         GLfloat light_ambient_1[] = { 0.0, 0.0, 0.0, 1.0 };
         GLfloat light_diffuse_1[] = { 0.3, 0.6, 0.7, 1.0 };
         GLfloat light_specular_1[] = { 1.0, 1.0, 1.0, 1.0 };
-        GLfloat light_position_1[] = { -50, 1, -80, 0.0 };
+        GLfloat light_position_1[] = { zz, xx, cc, 0.0 };
         // GLfloat spot_direction[] = { 0.0, -1.0, 0.0 };
 
       
@@ -401,7 +401,112 @@ void drawHome()
         gt(20,0,-137);
         drawCube(1,15,33);
     pop();
+    te(texture[6]);
+    push();
+        gt(-75,0,-25);
+        drawCube(145,2,155);
+    pop();
+    td();
 }
+
+
+void drawWall_long()
+{
+    push();
+        drawCube(70,15,1);
+    pop();
+}
+void drawWall_short()
+{
+    push();
+        drawCube(1,15,40);
+    pop();
+}
+void drawWall_long_window()
+{
+    push();
+        drawCube(70,4,1);
+    pop();
+    push();
+        gt(0,11,0);
+        drawCube(70,4,1);
+    pop();
+    push();
+        drawCube(25,15,1);
+    pop();
+    push();
+        gt(45,0,0);
+        drawCube(25,15,1);
+    pop();
+}
+void drawWall_short_window()
+{
+    push();
+        drawCube(1,4,40);
+    pop();
+    push();
+        gt(0,11,0);
+        drawCube(1,4,40);
+    pop();
+    push();
+        gt(0,0,-25);
+        drawCube(1,15,15);
+    pop();
+    push();
+        drawCube(1,15,15);
+    pop();
+}
+void drawWall_short_door(int a=1)
+{
+    if(a)
+    {
+        push();
+            gt(0,0,-7);
+            drawCube(1,15,33);
+        pop();
+    }
+    else{
+        push();
+            gt(0,0,-33);
+            drawCube(1,15,33);
+        pop();
+    }
+    
+}
+
+void drawRoom1()
+{
+    //front
+    push();
+        drawWall_long_window();
+    pop();
+    
+    //right
+    push();
+        gt(70,0,0);
+        drawWall_short_door();
+    pop();
+
+    //back
+    push();
+        gt(0,0,-40);
+        drawWall_long();
+    pop();
+    push();
+        drawWall_short_window();
+    pop();
+}
+
+
+void drawRoom2()
+{
+    glScalef(-0.56,1,1);
+    push();
+        drawRoom1();
+    pop();
+}
+
+
 
 void drawSofa()
 {
@@ -523,12 +628,12 @@ void drawDoor_1(bool x, float& angle, bool pp = true)
         if(x)
         {
             if(angle < 90)
-            angle+=10;
+            angle+=1;
         }
         else
         {
             if(angle > 0)
-                angle-=10;
+                angle-=1;
         }
         
     pop();
@@ -560,10 +665,69 @@ void doors()
         gt(20,0,-130);
         drawDoor_1(door_5_stat, door_5_angle, false);
     pop();
-
-
     td();
 }
+
+
+
+
+
+
+
+void drawHome2()
+{
+    // rooms start
+    push();
+        gt(-70,0,-130);
+        drawRoom1();
+    pop();
+    push();
+        gt(-70,0,-90);
+        drawRoom1();
+    pop();
+    push();
+        gt(-70,0,-50);
+        drawRoom1();
+    pop();
+    push();
+        gt(60,0,-130);
+        drawRoom2();
+    pop();
+    push();
+        gt(60,0,-90);
+        drawRoom2();
+    pop();
+
+
+    // extra walls
+
+    push();
+        gt(0,0,-170);
+        drawCube(22,15,1);
+    pop();
+
+    push();
+        gt(0,0,-30);
+        drawCube(60,15,1);
+    pop();
+
+    push();
+        gt(59,0,-30);
+        drawCube(1,15,60);
+    pop();
+
+    push();
+        drawSofas();
+    pop();
+    push();
+        doors();
+    pop();
+    
+}
+
+
+
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////// objects
 
@@ -595,20 +759,25 @@ void display(){
         drawOutside();
     pop();
 
+    te(texture[6]);
     push();
+        gt(-75,0,-25);
+        drawCube(145,2,155);
+    pop();
+    td();
+
+    push();
+        gt(0,2,0);
         te(texture[4]);
-        drawHome();
+        drawHome2();
         td();
     pop();
 
-    push();
-        drawSofas();
-    pop();
+    // push();
+    //     drawHome2();
+    // pop();
 
-
-    push();
-        doors();
-    pop();
+    
     // push();
     //     drawCube(1,1,1);
     //     glutSolidCube(1);
@@ -693,19 +862,19 @@ void myKeyboardFunc( unsigned char key, int x, int y )
         }
         break;
 
-    case 't':
-        l_y-=0.2;
-        break;
-    case 'T':
-        l_y+=0.2;
-        break;
-    case 'g':
+    // case 't':
+    //     l_y-=0.2;
+    //     break;
+    // case 'T':
+    //     l_y+=0.2;
+    //     break;
+    // case 'g':
+    // // case 'G':
+    //     l_z-=0.2;
+    //     break;
     // case 'G':
-        l_z-=0.2;
-        break;
-    case 'G':
-        l_z+=0.2;
-        break;
+    //     l_z+=0.2;
+    //     break;
 
 
     case '=':
@@ -752,25 +921,33 @@ void myKeyboardFunc( unsigned char key, int x, int y )
         door_5_stat = 1- door_5_stat;
         break;
 
+    case 'g':
+        cc-=1;
+        break;
+    case 'b':
+        cc+=1;
+        break;
+    case 'v':
+        zz-=1;
+        break;
     case 'n':
-        eyey--;
-        dy--;
+        zz +=1;
         break;
 
-    case 'b':
-        eyex++;
-        
-        break;
-    
-    case 'm':
-        eyex--;
-        break;
     case 'y':
-        l_x-=0.2;
+        xx+=1;
         break;
     case 'Y':
-        l_x+=0.2;
+        xx-=1;
         break;
+    case 'q':
+        spt_cutoff++;
+        break;
+    case 'Q':
+        spt_cutoff--;
+        break;
+
+
     case '1':
         l_1 = 1-l_1;
         break;
@@ -798,12 +975,7 @@ void myKeyboardFunc( unsigned char key, int x, int y )
         axis_y=1.0;
         break;
 
-    case 'q':
-        spt_cutoff+=0.2;
-        break;
-    case 'Q':
-        spt_cutoff-=0.2;
-        break;
+
     // case '5':
         // fdist +=0.5;
         // break;
@@ -999,18 +1171,19 @@ int main (int argc, char **argv)
     glutInitWindowPosition (100, 100);
     glutCreateWindow ("1707119");
 
-    glShadeModel( GL_SMOOTH );
+    glShadeModel( GL_FLAT );
     glEnable( GL_DEPTH_TEST );
     glEnable(GL_NORMALIZE);
     glEnable(GL_LIGHTING);
-    
+    // glShadeModel(GL_SMOOTH);
 
     texture[0] = LoadTexture("images/p1.bmp", 2000, 1338);
     texture[1] = LoadTexture("im1.bmp", 640, 640);      
     texture[2] = LoadTexture("images/wood_1.bmp", 500, 800);
-    texture[3] = LoadTexture("images/wall2.bmp", 359, 350);
-    texture[4] = LoadTexture("images/wall3.bmp", 1000, 1000);
+    // texture[3] = LoadTexture("images/wall2.bmp", 359, 350);
+    texture[4] = LoadTexture("images/wall4.bmp", 5845, 3897);
     texture[5] = LoadTexture("images/door.bmp", 632, 1264);
+    texture[6] = LoadTexture("images/marble_floor.bmp", 6000, 4502);
 
 
  
