@@ -14,6 +14,5 @@ im1.bmp filter=lfs diff=lfs merge=lfs -text
 im3.bmp filter=lfs diff=lfs merge=lfs -text
 images filter=lfs diff=lfs merge=lfs -text
 texture_in_ubuntu.zip filter=lfs diff=lfs merge=lfs -text
-main.cpp filter=lfs diff=lfs merge=lfs -text
 texture.cpp filter=lfs diff=lfs merge=lfs -text
 texture_in_ubuntu filter=lfs diff=lfs merge=lfs -text
