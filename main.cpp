@@ -3719,7 +3719,7 @@ int main (int argc, char **argv)
     glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH); 
     glutInitWindowSize (1000, 700);
     glutInitWindowPosition (100, 100);
-    glutCreateWindow ("1707119");
+    glutCreateWindow ("3D-Complete-House");
 
     glShadeModel( GL_FLAT );
     glEnable( GL_DEPTH_TEST );
